@@ -1,1 +1,0 @@
-# RecognitionWeldDefects 1
