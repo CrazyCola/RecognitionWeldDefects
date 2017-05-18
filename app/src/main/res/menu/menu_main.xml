@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:title="@string/action_settings"
+        android:id="@+id/action_settings"
+        android:icon="@drawable/nastroiki"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+    <item
+        android:title="@string/action_exit"
+        android:id="@+id/action_exit"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+</menu>

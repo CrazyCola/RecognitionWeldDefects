@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">RecognitionWeldDefects</string>
+
+    <string name="action_settings">Настройки</string>
+
+    <string name="action_exit">Выход</string>
+    <string name="title_activity_login_and__register">Login_and_Register</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_filter">Filter</string>
+
+
+</resources>

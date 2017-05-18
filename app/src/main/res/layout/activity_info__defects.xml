@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bac"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.olechka.recognitionwelddefects.Info_Defects"
+    android:onClick="onClick">
+
+    <TextView
+        android:id="@+id/textView0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дефекты сварных соединений"
+        android:autoText="false"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:textSize="@dimen/abc_text_size_display_1_material"
+        android:textStyle="bold|italic" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/weld" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="  В силу разных причин сварные соединения могут иметь дефекты, влияющие на их прочность.
+Все виды дефектов швов подразделяют на три группы:
+    наружные : трещины, подрезы, наплывы, кратеры;
+    внутренние : пористость, непровары и посторонние включения;
+    сквозные : трещины, прожоги.
+Причинами возникновения дефектов могут быть различные обстоятельства: низкое качество свариваемого металла, неисправное или некачественное оборудование, неверный выбор сварочных материалов, нарушение технологии сварки или неправильный выбор режима, недостаточная квалификация сварщика."
+                android:textColor="#000000"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/fab_margin"
+                android:textAlignment="gravity"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Основные дефекты сварки, их характеристика, причины возникновения и способы исправления"
+                android:autoText="false"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
+                android:textSize="@dimen/abc_dropdownitem_icon_width"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/textView02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Трещины."
+                android:textColor="#FFFFFF"
+                android:textStyle="bold|italic"
+                android:textSize="@dimen/design_fab_image_size" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Это наиболее опасные дефекты сварки, способные привести к практически мгновенному разрушению сваренных конструкций с самыми трагическими последствиям.
+                Трещины различаются по размерам (микро- и макротрещины) и времени возникновения (в процессе сварки или после нее)."
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/treshina" />
+
+            <TextView
+                android:id="@+id/textView03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Подрезы."
+                android:textColor="#FFFFFF"
+                android:textStyle="bold|italic"
+                android:textSize="@dimen/design_fab_image_size" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Подрезы - это углубления (канавки) в месте перехода основной металл-сварной шов. Подрезы встречаются довольно часто. Их отрицательное действие выражается в уменьшении сечения шва и возникновении очага концентрации напряжения.
+                И то и другое ослабляет шов. Подрезы возникают из-за повышенной величины сварочного тока. Чаще всего этот дефект образуется в горизонтальных швах. Устраняют его наплавкой тонкого шва по линии подреза."
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/podrez" />
+
+            <TextView
+                android:id="@+id/textView04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Наплывы."
+                android:textColor="#FFFFFF"
+                android:textStyle="bold|italic"
+                android:textSize="@dimen/design_fab_image_size" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Наплывы возникают, когда расплавленный металл натекает на основной, но не образует с ним гомогенного соединения.
+                Дефект шва возникает по разным причинам - при недостаточном прогреве основного металла вследствие малого тока, из-за наличия окалины на свариваемых кромках, препятствующей сплавлению, излишнего количества присадочного материала. Устраняются наплывы срезанием с проверкой наличия непровара в этом месте."
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/naplyv" />
+
+            <TextView
+                android:id="@+id/textView05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Кратеры."
+                android:textColor="#FFFFFF"
+                android:textStyle="bold|italic"
+                android:textSize="@dimen/design_fab_image_size" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView2"
+                android:text="Это дефекты в виде углубления, возникающего в результате обрыва сварочной дуги. Кратеры снижают прочность шва из-за уменьшения его сечения.
+                В них могут находиться усадочные рыхлости, способствующие образованию трещин. Кратеры надлежит вырезать до основного металла и заварить."
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/krater" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

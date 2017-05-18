@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.olechka.recognitionwelddefects.MainPhotoFilter"
+    android:background="#003153"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/buttonLoadimage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#11147b"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:text="Выбрать изображение"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ExpandableListView
+        android:id="@+id/list_filter"
+        android:layout_width="match_parent"
+        android:layout_height="242dp"
+        android:textFilterEnabled="true"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:background="#a7b3f2"
+        android:layout_weight="0.98">
+    </ExpandableListView>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:maxHeight="200dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/textViewSaturation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="черно-белое ___________________________цветное"
+        android:textColor="#FFFFFF"
+        android:background="#11147b"
+        android:autoText="false"
+        android:textSize="15dp"
+        android:textStyle="normal" />
+
+    <SeekBar
+        android:id="@+id/seekBarSaturation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="512"
+        android:progress="256"
+        android:indeterminate="false" />
+
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#11147b"
+        android:textColor="#FFFFFF"
+        android:text="Сохранить изображение в отчеты"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClick" />
+
+</LinearLayout>
