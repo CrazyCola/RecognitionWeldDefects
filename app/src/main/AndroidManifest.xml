@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.olechka.recognitionwelddefects">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
     <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
     <!-- <uses-feature android:name="android.hardware.camera" /> -->
     <!-- <uses-feature android:name="android.hardware.camera.autofocus" /> -->
@@ -68,6 +71,7 @@
         <!-- <activity android:name=".MainCamera" /> -->
         <activity android:name=".RecognitionWeldDefects" />
 
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -75,8 +79,7 @@
         <activity android:name=".Info_Reference" />
         <activity android:name=".Authorization" />
         <activity android:name=".CameraActivity" />
-       <activity android:name=".Report">
-       </activity>
+        <activity android:name=".Report"></activity>
     </application>
 
 </manifest>

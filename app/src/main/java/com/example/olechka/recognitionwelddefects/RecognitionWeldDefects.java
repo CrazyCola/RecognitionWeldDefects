@@ -8,6 +8,8 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,65 +18,71 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
-public class RecognitionWeldDefects extends AppCompatActivity {
+public class RecognitionWeldDefects extends AppCompatActivity implements Imageutils.ImageAttachmentListener {
 
     final int RQS_IMAGE = 1;
+    ImageView iv_attachment;
+    Imageutils imageutils;
 
     private Button mLoadImageButton;
-    private ImageView mGaleryImageView;
     private SeekBar mSaturationSeekbar;
     private TextView mSaturationTextView;
-
     private Uri mSource;
-    private Bitmap mBitmap;
+    private Bitmap bitmap;
+    private String file_name;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_photo_filter);
+        setContentView(R.layout.activity_image_attachment);
 
+//        mLoadImageButton = (Button) findViewById(R.id.buttonLoadimage);
 
-        mLoadImageButton = (Button) findViewById(R.id.buttonLoadimage);
         mSaturationTextView = (TextView) findViewById(R.id.textViewSaturation);
-        mGaleryImageView = (ImageView) findViewById(R.id.imageView);
+        imageutils = new Imageutils(this);
+        iv_attachment = (ImageView) findViewById(R.id.imageView);
 
-        mLoadImageButton.setOnClickListener(new View.OnClickListener() {
-
+//        mLoadImageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(
+//                        Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(intent, RQS_IMAGE);
+//            }
+//        });
+        iv_attachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, RQS_IMAGE);
+                imageutils.imagepicker(1);
             }
         });
-
-
         mSaturationSeekbar = (SeekBar) findViewById(R.id.seekBarSaturation);
         mSaturationSeekbar.setOnSeekBarChangeListener(seekBarChangeListener);
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        imageutils.onActivityResult(requestCode, resultCode, data);
+
+          if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case RQS_IMAGE:
                     mSource = data.getData();
-
                     try {
-                        mBitmap = BitmapFactory.decodeStream(getContentResolver()
+                        bitmap = BitmapFactory.decodeStream(getContentResolver()
                                 .openInputStream(mSource));
-
                         mSaturationSeekbar.setProgress(256);
-
                         loadSaturationBitmap();
-
                     } catch (FileNotFoundException e) {
-
                         e.printStackTrace();
                     }
             }
@@ -97,14 +105,14 @@ public class RecognitionWeldDefects extends AppCompatActivity {
     };
 
     private void loadSaturationBitmap() {
-        if (mBitmap != null) {
+        if (bitmap != null) {
             int progressSat = mSaturationSeekbar.getProgress();
             // Saturation, 0=gray-scale. 1=identity
             float saturation = (float) progressSat / 256;
             mSaturationTextView.setText("Saturation: "
                     + String.valueOf(saturation));
-            mGaleryImageView.setImageBitmap(updateSaturation(mBitmap,
-                    saturation));
+           iv_attachment.setImageBitmap(updateSaturation(bitmap,
+                   saturation));
         }
     }
 
@@ -124,4 +132,21 @@ public class RecognitionWeldDefects extends AppCompatActivity {
 
         return bitmapResult;
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        imageutils.request_permission_result(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
+        this.bitmap=file;
+        this.file_name=filename;
+        iv_attachment.setImageBitmap(file);
+
+        String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imageutils.createImage(file,filename,path,false);
+
+    }
 }
+
