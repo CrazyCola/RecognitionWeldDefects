@@ -7,13 +7,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -58,10 +56,23 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 //        button_otch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent1 = new Intent(MenuActivity.this, Report.class);
+//                Intent intent1 = new Intent(MenuActivity.this, ReportActivity.class);
 //                startActivity(intent1);
 //            }
 //        });
+
+        Button startOtch = (Button) findViewById(R.id.button_otch);
+        startOtch.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intent_2= new Intent(MenuActivity.this, ReportActivity.class);
+                startActivity(intent_2);
+
+            }
+        });
+
         //        Получаем ссылку на кнопку
        button_info_def = (Button) findViewById(R.id.button_info_def);
         View.OnClickListener oclBtnDef = new View.OnClickListener() {

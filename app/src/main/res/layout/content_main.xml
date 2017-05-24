@@ -74,11 +74,11 @@
         android:layout_margin="@dimen/abc_action_bar_content_inset_material"
         android:background="#11147b"
         android:text="Отчёты"
+
         android:textColor="#FFFFFF"
         android:textStyle="normal"
         android:layout_row="3"
         android:layout_column="0"
-        android:onClick="onClick"
        />
 
     <Button

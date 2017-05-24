@@ -9,5 +9,9 @@ public class Info_Reference extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info__defects);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
     }
 }
