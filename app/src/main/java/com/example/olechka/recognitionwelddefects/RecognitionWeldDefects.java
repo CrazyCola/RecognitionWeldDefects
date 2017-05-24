@@ -8,15 +8,19 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,30 +37,21 @@ public class RecognitionWeldDefects extends AppCompatActivity implements Imageut
     private Uri mSource;
     private Bitmap bitmap;
     private String file_name;
+    private DonutProgress donutProgress;
 
-    /**
-     * Called when the activity is first created.
-     */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_attachment);
 
-//        mLoadImageButton = (Button) findViewById(R.id.buttonLoadimage);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         mSaturationTextView = (TextView) findViewById(R.id.textViewSaturation);
         imageutils = new Imageutils(this);
         iv_attachment = (ImageView) findViewById(R.id.imageView);
-
-//        mLoadImageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(
-//                        Intent.ACTION_PICK,
-//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(intent, RQS_IMAGE);
-//            }
-//        });
         iv_attachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +60,7 @@ public class RecognitionWeldDefects extends AppCompatActivity implements Imageut
         });
         mSaturationSeekbar = (SeekBar) findViewById(R.id.seekBarSaturation);
         mSaturationSeekbar.setOnSeekBarChangeListener(seekBarChangeListener);
-
+        donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
     }
 
     @Override
@@ -73,7 +68,7 @@ public class RecognitionWeldDefects extends AppCompatActivity implements Imageut
         super.onActivityResult(requestCode, resultCode, data);
         imageutils.onActivityResult(requestCode, resultCode, data);
 
-          if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case RQS_IMAGE:
                     mSource = data.getData();
@@ -95,9 +90,11 @@ public class RecognitionWeldDefects extends AppCompatActivity implements Imageut
         public void onProgressChanged(SeekBar seekBar, int progress,
                                       boolean fromUser) {
         }
+
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
         }
+
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             loadSaturationBitmap();
@@ -111,8 +108,8 @@ public class RecognitionWeldDefects extends AppCompatActivity implements Imageut
             float saturation = (float) progressSat / 256;
             mSaturationTextView.setText("Saturation: "
                     + String.valueOf(saturation));
-           iv_attachment.setImageBitmap(updateSaturation(bitmap,
-                   saturation));
+            iv_attachment.setImageBitmap(updateSaturation(bitmap,
+                    saturation));
         }
     }
 
@@ -140,13 +137,69 @@ public class RecognitionWeldDefects extends AppCompatActivity implements Imageut
 
     @Override
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
-        this.bitmap=file;
-        this.file_name=filename;
+        this.bitmap = file;
+        this.file_name = filename;
         iv_attachment.setImageBitmap(file);
 
-        String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
-        imageutils.createImage(file,filename,path,false);
+        String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imageutils.createImage(file, filename, path, false);
 
+    }
+
+    public void recogniteDefect(View view){
+        if(file_name != null) {
+            donutProgress.setProgress(0);
+            donutProgress.setVisibility(View.VISIBLE);
+            new LoadingTask().execute();
+        }
+    }
+
+    class LoadingTask extends AsyncTask<Void, Integer, Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for(int i = 0; i < 100; i++){
+                try {
+                    Thread.sleep(10);
+                    publishProgress(i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            donutProgress.setProgress(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            donutProgress.setVisibility(View.INVISIBLE);
+            if(!file_name.isEmpty()){
+                try {
+                    Log.d("mylogs", file_name);
+
+                    String path = Environment.getExternalStorageDirectory()
+                            + File.separator + "Pictures"
+                            + File.separator + file_name.split("\\.")[0] + "_r." + file_name.split("\\.")[1];
+                    File imgFile = new File(path);
+
+                    if (imgFile.exists()) {
+
+                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        iv_attachment.setImageBitmap(myBitmap);
+
+                    }
+                } catch(ArrayIndexOutOfBoundsException e){
+                    Log.e("mylogs", e.getMessage());
+                }
+
+            }
+        }
     }
 }
 
